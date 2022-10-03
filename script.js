@@ -1,16 +1,33 @@
 //fetch
 
-const getData = () => {
-  fetch(
-    "https://raw.githubusercontent.com/clarusway/clarusway-FS-DE-03-TR/main/javascript/assigments/js-7/tv-shows.json?token=GHSAT0AAAAAABVTPKUXBHVMXGSZJYXFLGHEYZ2XDUQ"
-  )
+const controlFunction = () => {
+  fetch("./tv-shows.json")
     .then((response) => {
       if (response.ok == false) {
-        throw new Error("Bir hata olustu"); //Hata olusup olusmadigini kontrol ettik
-      } else return response.json(); //Artik köseli parantezle yazdigimiz icin disariya return ile göndermemiz gereikiyor
+        throw new Error("Veri cekilirken bir hata olustu!");
+      } else return response.json();
     })
-    .then((data) => ekranaBastir(data)) //Burda kalabalik olmasi diye fonksiyon cagirdim. O fonksiyon icinde ekrana bastirma islemini yapacagim.json cevirdigim datalari fonksiyona göndermem gerekir
-    .catch((err) => console.log(err)); //Eger yukarda bi yerde bir hata olursa burda hatamizi gösterecek.
+    .then((data) => pressFunction(data))
+    .catch((err) => console.log(err));
 };
 
-getData();
+controlFunction();
+
+const pressFunction = (data) => {
+  const display = document.querySelector(".row");
+
+  data.forEach((a) => {
+    console.log(a.show["name"]);
+    display.innerHTML += ` 
+    <div class="col mb-3">
+    <div class="card" style="width: 18rem">
+      <img src="${a.show.image.original}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">${a.show.name}</h5>
+
+        <a href="${a.url}" class="btn btn-primary">Details</a>
+      </div>
+    </div>
+  </div>`;
+  });
+};
