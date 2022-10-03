@@ -25,7 +25,7 @@ const pressFunction = (data) => {
       <div class="card-body">
         <h5 class="card-title">${a.show.name}</h5>
 
-        <a href="${a.url}" class="btn btn-primary">Details</a>
+        <a href="${a.show.url}" class="btn btn-primary">Details</a>
       </div>
     </div>
   </div>`;
